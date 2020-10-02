@@ -18,7 +18,7 @@ def main():
     # set which functions to test
     check_starts_with = True
     check_starts_with_vowel = True
-    check_max_min_sum = True
+    check_max_min_sum = False
 
     if check_starts_with:
         print('starts_with')

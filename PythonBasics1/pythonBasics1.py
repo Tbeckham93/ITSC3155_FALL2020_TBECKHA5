@@ -9,8 +9,14 @@
 # and returns true if the string starts with that character and false otherwise. 
 def starts_with(s, char):
   # YOUR CODE HERE
+  if len(s) >= 1 and len(char) <= 0:
+    return False
+  if s.startswith(char):
+    return True
+  else:
+    return False
   
-  return
+
 
 # Part B. starts_with_vowel
 # Define a function starts_with_vowel(s) that takes a string and
@@ -19,8 +25,10 @@ def starts_with(s, char):
 # Your solution should work for both upper and lower cases 
 def starts_with_vowel(s):
   # YOUR CODE HERE
-  
-  return
+  if s.lower().startswith('a') or s.lower().startswith('e') or s.lower().startswith('i') or s.lower().startswith('u') or s.lower().startswith('o'):
+    return True
+  else: 
+    return False
 
 # Part C. max_min_sum
 # Define a function max_min_sum(arr) that takes an array and returns the sum
