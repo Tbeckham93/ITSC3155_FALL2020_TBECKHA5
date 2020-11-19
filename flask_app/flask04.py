@@ -6,12 +6,21 @@ from flask import Flask  # Flask is the web app that we will customize
 from flask import render_template
 from flask import request
 from flask import redirect, url_for
+from database import db
 
 app = Flask(__name__)  # create an app
 
 notes = {1: {'title': 'first note', 'text': 'This is mt first note', 'date': '10-1-2020'},
          2: {'title': 'Second note', 'text': 'This is my second note', 'date': '10-2-2020'},
          3: {'title': 'Third note', 'text': 'This is my third note', 'date': '10-3-2020'}}
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flask_note_app.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+#  Bind SQLAlchemy db object to this Flask app
+db.init_app(app)
+# Setup models
+with app.app_context():
+    db.create_all()   # run under the app context
 
 
 # @app.route is a decorator. It gives the function "index" special powers.
