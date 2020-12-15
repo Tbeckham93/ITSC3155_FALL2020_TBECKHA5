@@ -9,13 +9,21 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     </head>
     <body>
-
+    <nav>
+        <a href="{{ url_for('index') }}"> Home</a> ||
+        <a href="{{ url_for('get_notes') }}"> My Notes</a> ||
+        <a href="{{ url_for('new_notes') }}">Add Note</a>
+    </nav>
+    {% if user %}
         <nav>
-	        <a href="{{ url_for('index') }}"> Home</a> ||
-            <a href="{{ url_for('get_notes') }}"> My Notes</a> ||
-            <a href="{{ url_for('new_notes') }}"> Add Note</a> ||
-
+            <a href="{{ url_for('logout') }}">Logout</a>
         </nav>
+    {% else %}
+        <nav>
+            <a href="{{ url_for('login') }}">Sign In</a> ||
+            <a href="{{ url_for('register') }}">Register</a>
+        </nav>
+    {% endif %}
 
         <h1>Welcome {{user}} to the UNCC Notes App!</h1>
 
@@ -53,6 +61,24 @@
     {{ form.submit }}
   </div>
 </form>
-
+{% if note.comments %}
+  {% if note.comments|length > 0 %}
+    <h2>Comments</h2>
+    <ul>
+    {% for comment in note.comments %}
+      <li>{{ comment.content }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endif %}
+<form action="{{ url_for('new_comment', note_id=note.id) }}" method="post">
+  <div class="formwrapper">
+    <h2 class="title">Add a comment</h2>
+    <div class="form-field">
+      {{ form.comment.label }} <br/> {{ form.comment }}
+    </div>
+    {{ form.submit }}
+  </div>
+</form>
     </body>
 </html>
